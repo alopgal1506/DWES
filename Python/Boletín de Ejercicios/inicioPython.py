@@ -28,23 +28,16 @@
     #    print("El numero es impar")
 """
 # 7 Calcula el máximo común divisor (MCD) de dos números. 
-num1 = int(input("Ingresa un numero: "))
-num2 = int(input("Ingresa un numero: "))
-resto = 0
-contadorPares = 0
-contadorImpares = 0
-while resto != 0 :
-    if num1 % 2 == 0 :
-        resultado = num1/2
-        contadorPares += 1 
-        ++resto
-    else :
-        resultado = num1/3
-        contadorImpares += 1
-        ++resto
+num1 = int(input("Introduce el primer número: "))
+num2 = int(input("Introduce el segundo número: "))
 
-print(contadorImpares)
-print(contadorImpares)
+mcd = 1
+
+for i in range(1, min(num1, num2) + 1):
+    if num1 % i == 0 and num2 % i == 0:
+        mcd = i
+
+print("El MCD es:", mcd)
 
 # 8. Imprime los números del 1 al 10 usando un bucle for.
     #for i in range (1,11) :
