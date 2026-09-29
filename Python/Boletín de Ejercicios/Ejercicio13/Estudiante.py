@@ -5,12 +5,12 @@ class Estudiante () :
         self.edad = edad
         self.curso = curso
         
-    def decirNombre(self) :
+    def mostrarNombre(self) :
         return self.nombre
     
-    def decirEdad(self) :
+    def mostrarEdad(self) :
         return self.edad
     
-    def decirCurso(self) :
+    def mostrarCurso(self) :
         return self.curso
 
