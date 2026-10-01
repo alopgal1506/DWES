@@ -27,6 +27,7 @@
     #else : 
     #    print("El numero es impar")
 """
+"""
 # 7 Calcula el máximo común divisor (MCD) de dos números. 
 num1 = int(input("Introduce el primer número: "))
 num2 = int(input("Introduce el segundo número: "))
@@ -38,7 +39,7 @@ for i in range(1, min(num1, num2) + 1):
         mcd = i
 
 print("El MCD es:", mcd)
-
+"""
 # 8. Imprime los números del 1 al 10 usando un bucle for.
     #for i in range (1,11) :
     #   print(i)
