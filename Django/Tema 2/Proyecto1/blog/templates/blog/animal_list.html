@@ -8,9 +8,10 @@
    {% for animales in animal_list%}
        <article>
            <h2>Nombre: {{animales.nombre}}</h2>
-           <h2>Tipo: {{animales.tipo}}</h2>
-           <h2>Cuidador: {{animales.cuidador}}</h2>
+           <p>Tipo: {{animales.tipo}}</p>
+           <p>Cuidador: {{animales.cuidador}}</p>
        </article>
    {% endfor%}
+   <li><a href="{% url 'index' %}">Volver</a></li>
 </body>
 </html>

@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.shortcuts import render
 from .models import Animal, Colaborador, Protectora
 
-
+def index(request):
+    return render(request, 'blog/index.html')
+ 
 def animal_list(request):
    animales = Animal.objects.all()
    return render(request, 'blog/animal_list.html', {'animal_list': animales})

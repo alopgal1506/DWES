@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-   <meta charset="UTF-8">
-   <title>Mi primera página</title>
+    <meta charset="UTF-8">
+    <title>Mi primera página</title>
 </head>
 <body>
-   {% for colaborador in colaborador_list%}
-       <article>
-           <h2>Nombre: {{colaborador.nombre}}</h2>
-           <p>{{colaborador.text|linebreaks}}</p>
-           <time>Published: {{colaborador.fecha_creacion}}</time>
-       </article>
-   {% endfor%}
+    {% for colaborador in colaborador_list %}
+        <article>
+            <h2>Nombre: {{ colaborador.nombre }}</h2>
+            <p>Cargo: {{ colaborador.cargo }}</p>
+            <time>Fecha de entrada: {{ colaborador.fecha_entrada_protectora }}</time>
+        </article>
+    {% endfor %}
+    <li><a href="{% url 'index' %}">Volver</a></li>
 </body>
 </html>

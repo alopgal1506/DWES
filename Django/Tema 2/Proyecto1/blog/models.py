@@ -23,6 +23,10 @@ class Protectora(models.Model):
   
    def __str__(self):
     return self.nombre
+ 
+   def publish(self):
+      self.fecha_creacion=timezone.now()
+      self.save()
 
 class Colaborador(models.Model):
    nombre = models.CharField(max_length=50)
@@ -31,5 +35,9 @@ class Colaborador(models.Model):
   
    def __str__(self):
     return self.nombre
+
+   def publish(self):
+      self.fecha_entrada_protectora=timezone.now()
+      self.save()
 
 
