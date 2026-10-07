@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Mi primera página</title>
+</head>
+<body>
+    {% for compra in compras_list%}
+       <article>
+           <h2>Usuario: {{compra.usuario}}</h2>
+           <p>Producto: {{compra.producto}}</p>
+           <p>Fecha de compra: {{compra.fecha_compra}}</p>
+       </article>
+   {% endfor%}
+   <li><a href="{% url 'index' %}">Volver</a></li>
+</body>
+</html>

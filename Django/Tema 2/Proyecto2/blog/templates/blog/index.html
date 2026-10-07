@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido al supermercado</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'usuario_list' %}">Usuarios</a></li>
+            <li><a href="{% url 'producto_list' %}">Productos</a></li>
+            <li><a href="{% url 'compra_list' %}">Compras</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Mi primera página</title>
+</head>
+<body>
+    {% for producto in productos_list%}
+       <article>
+           <h2>Nombre: {{producto.nombre}}</h2>
+           <p>Descripción: {{producto.descripcion}}</p>
+           <p>Precio: {{producto.precio}}</p>
+       </article>
+   {% endfor%}
+   <li><a href="{% url 'index' %}">Volver</a></li>
+</body>
+</html>
