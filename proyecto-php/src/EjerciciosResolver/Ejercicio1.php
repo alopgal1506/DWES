@@ -30,7 +30,7 @@
 
       echo "<h1>Calculo del volúmen de un cilindrio</h1>";
       echo "<div style='display:flex'>";
-      echo "<img src='../src/cilindro.jpg' width='50' height='50'/>";
+      echo "<img src='src/cilindro.jpg' width='50' height='50'/>";
       echo "<p>El volumen del cilindro es ", $volumen, "</p>";
       echo "</div>";
    }
