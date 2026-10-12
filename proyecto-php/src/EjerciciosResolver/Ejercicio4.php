@@ -17,19 +17,48 @@
 
     <?php
 
-        function calcularPrecioMedio($precioPrimeraTienda, $precioSegundaTienda, $precioTerceraTienda){
-            $precioTotal=$precioPrimeraTienda+$precioSegundaTienda+$precioTerceraTienda;
-            return $precioTotal/3;
-
+    function calcularPrecioMedio($tiendas)
+    {
+        $precioTotal = 0;
+        foreach ($tiendas as $tienda) {
+            $precioTotal += $tienda['precio'];
         }
-        if(isset($_GET['tienda1'])&& isset($_GET['tienda2'])&& isset($_GET('tienda3'))){
-            $precioPrimeraTienda=$_GET['tienda1'];
-            $precioSegundaTienda=$_GET['tienda2'];
-            $precioTerceraTienda=$_GET['tienda3'];
+        return $precioTotal / count($tiendas);
+    }
 
-           $precioMedio= calcularPrecioMedio($precioPrimeraTienda, $precioSegundaTienda, $precioTerceraTienda);
+    function mostrarInformacion($tiendas, $precioMedio)
+    {
+        echo "<table border='1'>";
 
+        echo "<tr><th>Tienda</th><th>Precio</th><th>Diferencia con la media</th></tr>";
+        foreach ($tiendas as $tienda) {
+            $diferencia = $tienda['precio'] - $precioMedio;
+
+            echo "<tr>";
+            echo "<td>" . $tienda['nombre'] . "</td>";
+            echo "<td>" .$tienda['precio']. " €</td>";
+            echo "<td>" .$diferencia.  " €</td>";
+            echo "</tr>";
         }
+
+        echo "<tr>";
+        echo "<td colspan='2'><b>Precio medio</b></td>";
+        echo "<td><b>" .$precioMedio . " €</b></td>";
+        echo "</tr>";
+
+        echo "</table>";
+    }
+    if (isset($_GET['tienda1']) && isset($_GET['tienda2']) && isset($_GET['tienda3'])) {
+        $tiendas = [
+            ["nombre" => "Tienda 1", "precio" => $_GET['tienda1']],
+            ["nombre" => "Tienda 2", "precio" => $_GET['tienda2']],
+            ["nombre" => "Tienda 3", "precio" => $_GET['tienda3']]
+        ];
+
+
+        $precioMedio = calcularPrecioMedio($tiendas);
+        mostrarInformacion($tiendas, $precioMedio);
+    }
 
     ?>
 </body>
