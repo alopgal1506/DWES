@@ -25,7 +25,7 @@
 
    if (isset($_GET['altura']) && isset($_GET['diametro'])) {
       $altura = $_GET['altura'];
-      $diametro = $_GET['diametro'];
+      $diametro =  $_GET['diametro'];
       $volumen = calcularVolumen($altura, $diametro);
 
       echo "<h1>Calculo del volúmen de un cilindrio</h1>";
