@@ -9,7 +9,7 @@ class Usuario(models.Model):
     correoElectronico = models.CharField(max_length=200, unique=True)
     contrasenia = models.TextField()
     fechaRegistro = models.DateTimeField(blank=True, null=True)
-
+    
     def publish(self):
         self.fechaRegistro = timezone.now()
         self.save()
@@ -39,6 +39,61 @@ class Tarea(models.Model):
 
     def __str__(self):
         return ("Titulo: " + self.titulo +
-            ", Correo Electrónico: " + self.correoElectronico +
-            ", Contraseña: " + self.contrasenia +
-            ", Fecha de registro: " + str(self.fechaRegistro))
+            ", Descripción: " + self.descripcion +
+            ", Prioridad: " + self.prioridad +
+            ", Estado: " + self.estado +
+            ", Completa: " + self.completada +
+            ", Fecha de Creación: " + self.fechaCreacion +
+            ", Fecha de Vencimiento: " + self.horaVencimiento)
+
+class Proyecto(models.Model):
+    nombre = models.CharField(max_length=50)
+    descripcion= models.TextField()
+    duracionEstimada=models.FloatField(default=5.0)
+    fechaInicio=models.DateField()
+    fechaFinalizacion=models.DateField()
+    usuarios=models.ManyToManyField(Usuario, through="AsignarProyecto", related_name="proyectos")
+    
+    def __str__(self):
+        return ("Nombre: " + self.nombre +
+        ", Descripción: " + self.descripcion +
+        ", Duración Estimada: " + self.duracionEstimada +
+        ", Fecha de Inicio: " + str(self.fechaInicio)+
+        ", Fecha de Finalización: "+ str(self.fechaFinalizacion)+
+        ", Usuarios: "+self.usuarios)
+
+class AsignarProyecto(models.Model):
+    usuario=models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    proyecto=models.ForeignKey(Proyecto, on_delete=models.CASCADE)
+    
+    def __str__(self):
+            return ("Usuario: " + self.usuario +
+            ", Proyectos: " + self.proyecto)
+
+class Etiqueta (models.Model):
+    nombre=models.CharField(unique=True)
+    
+    def __str__(self):
+        return ("Nombre: "+self.name)
+    
+class Asignacion(models.Model):
+    observaciones=models.TextField()
+    fechaAsignacion=models.DateTimeField()
+    
+    def __str__(self):
+        return ("Observaciones: "+self.observaciones+
+        ", Fecha Asignación: "+self.fechaAsignacion)
+
+class Comentario(models.Model):
+    contenido=models.TextField()
+    fechaComentario=models.DateTimeField()
+        
+    def __str__(self):
+        return ("Contenido: "+self.contenido+
+        ", Fecha Comentario: "+self.fechaComentario)
+    
+        
+     
+    
+     
+     
