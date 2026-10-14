@@ -35,3 +35,5 @@
 
     print_r($numeros);
 ?>
+
+//http://localhost:8080/Tema3/EjerciciosResolver/primos.php
