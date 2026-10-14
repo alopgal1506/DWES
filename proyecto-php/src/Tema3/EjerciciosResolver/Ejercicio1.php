@@ -1,57 +1,193 @@
 <?php
-$solucion = "gato";   // cambia esto por lo que aparece en tu imagen
-$resultado = "";
 
-if (isset($_POST['respuesta'])) {
-    $intento = strtolower(trim($_POST['respuesta']));
-    $resultado = ($intento == $solucion) ? "acierto" : "fallo";
+define('RESPUESTA_CORRECTA', 'gato');
+define('IMAGEN', './src/gato.jpeg');
+
+function procesarIntento() {
+    $estado = 'jugando';
+    $mensaje_error = '';
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $intento = strtolower(trim($_POST['respuesta']));
+        
+        if ($intento === RESPUESTA_CORRECTA) {
+            $estado = 'ganado';
+        } else {
+            $estado = 'perdido';
+            $mensaje_error = "La respuesta no es correcta.";
+        }
+    }
+    
+    return [
+        'estado' => $estado,
+        'mensaje_error' => $mensaje_error
+    ];
 }
+
+function generarCelda($numero) {
+    return "
+        <div class=\"celda c{$numero}\">
+            <div class=\"tapa\"></div>
+        </div>
+    ";
+}
+
+function generarMosaico() {
+    $html = '<div class="mosaico">';
+    for ($i = 1; $i <= 9; $i++) {
+        $html .= generarCelda($i);
+    }
+    $html .= '</div>';
+    return $html;
+}
+
+
+function generarFormulario() {
+    return '
+        <form method="POST" action="">
+            <input type="text" name="respuesta" placeholder="Adivina de que se trata" required>
+            <br><br>
+            <button type="submit">Comprobar</button>
+        </form>
+    ';
+}
+
+
+function generarVistaGanado() {
+    return "
+        <p class=\"mensaje exito\">Has acertado, es un " . RESPUESTA_CORRECTA . ".</p>
+        <img src=\"" . IMAGEN . "\" alt=\"Imagen completa\" class=\"imagen-completa\">
+    ";
+}
+
+
+function generarVistaPerdido($mensaje_error) {
+    return "
+        <p class=\"mensaje fallo\">{$mensaje_error}</p>
+        <a href=\"Ejercicio1.php\" class=\"btn-volver\" style=\"background-color: #dc3545;\">Volver a intentarlo</a>
+    ";
+}
+
+
+function generarJavaScript() {
+    return "
+        <script>
+            const celdas = document.querySelectorAll('.celda');
+            
+            celdas.forEach(celda => {
+                celda.addEventListener('click', function() {
+                    const tapa = this.querySelector('.tapa');
+                    
+                    if (tapa.classList.contains('oculta')) return;
+
+                    tapa.classList.add('oculta');
+                    
+                    setTimeout(() => {
+                        tapa.classList.remove('oculta');
+                    }, 2000);
+                });
+            });
+        </script>
+    ";
+}
+
+function generarVistaJuego() {
+    return generarMosaico() . generarFormulario() . generarJavaScript();
+}
+
+
+$resultado = procesarIntento();
+$estado = $resultado['estado'];
+$mensaje_error = $resultado['mensaje_error'];
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Adivina la imagen</title>
-<script>
-function ver(img, n) {
-    img.src = "trozo.php?n=" + n;                                // mostrar el trozo
-    setTimeout(function () { img.src = "trozo.php"; }, 2000);    // ocultarlo a los 2 s
-}
-</script>
+    <meta charset="UTF-8">
+    <title>Juego de Adivinar Imagen</title>
+    <style>
+        body { font-family: Arial, sans-serif;  background-color: #f4f4f9; padding: 20px; }
+        
+        .mosaico {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 4px;
+            margin: 20px auto;
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .celda {
+            width: 100px;
+            height: 100px;
+            background-image: url('<?php echo IMAGEN; ?>');
+            background-size: 300px 300px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .c1 { background-position: 0% 0%; }     .c2 { background-position: 50% 0%; }    .c3 { background-position: 100% 0%; }
+        .c4 { background-position: 0% 50%; }    .c5 { background-position: 50% 50%; }   .c6 { background-position: 100% 50%; }
+        .c7 { background-position: 0% 100%; }   .c8 { background-position: 50% 100%; }  .c9 { background-position: 100% 100%; }
+
+        .tapa {
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #2ECC71;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            transition: opacity 0.3s;
+        }
+
+        .tapa.oculta {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .mensaje { font-size: 20px; font-weight: bold; margin: 20px 0; }
+        .exito { color: green; }
+        .fallo { color: red; }
+        
+        input[type="text"] { padding: 10px; font-size: 16px; width: 200px; }
+        button, .btn-volver { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            background-color: #28a745; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin-top: 10px;
+        }
+        button:hover, .btn-volver:hover { background-color: #218838; }
+        
+        .imagen-completa { 
+            max-width: 300px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+        }
+    </style>
 </head>
 <body>
-<h1>Adivina la imagen</h1>
 
-<?php if ($resultado == "acierto"): ?>
+    <?php
+    if ($estado === 'jugando') {
+        echo generarVistaJuego();
+    } elseif ($estado === 'ganado') {
+        echo generarVistaGanado();
+    } elseif ($estado === 'perdido') {
+        echo generarVistaPerdido($mensaje_error);
+    }
+    ?>
 
-    <img src="trozo.php?n=completa" width="450">
-    <p>¡Enhorabuena, has acertado!</p>
-
-<?php elseif ($resultado == "fallo"): ?>
-
-    <p>Has fallado, sigue intentándolo.</p>
-    <a href="index.php"><button>Volver</button></a>
-
-<?php else: ?>
-
-    <table>
-    <?php for ($f = 0; $f < 3; $f++): ?>
-        <tr>
-        <?php for ($c = 0; $c < 3; $c++): ?>
-            <td>
-                <img src="trozo.php" width="150" height="150"
-                     onclick="ver(this, <?= $f * 3 + $c ?>)">
-            </td>
-        <?php endfor; ?>
-        </tr>
-    <?php endfor; ?>
-    </table>
-
-    <form method="post">
-        <input type="text" name="respuesta">
-        <button type="submit">Comprobar</button>
-    </form>
-
-<?php endif; ?>
 </body>
 </html>
