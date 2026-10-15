@@ -35,8 +35,9 @@ class Tarea(models.Model):
     completada = models.BooleanField(default=False)
     fechaCreacion = models.DateField(auto_now_add=True)
     horaVencimiento = models.TimeField()
-    
-
+    usuarios=models.ManyToManyField(Usuario, through="AsignarProyecto", related_name="usuarios")
+    asignar_usuarios=models.ManyToManyField(Usuario, through="CrearTarea", related_name="asignar_usuarios")
+        
     def __str__(self):
         return ("Titulo: " + self.titulo +
             ", Descripción: " + self.descripcion +
@@ -52,8 +53,8 @@ class Proyecto(models.Model):
     duracionEstimada=models.FloatField(default=5.0)
     fechaInicio=models.DateField()
     fechaFinalizacion=models.DateField()
-    usuarios=models.ManyToManyField(Usuario, through="AsignarProyecto", related_name="proyectos")
-    
+    usuarios=models.ManyToManyField(Usuario, through="AsignacionTarea", related_name="proyectos")
+    proyecto=models.ForeignKey(Usuario, on_delete=models.CASCADE)
     def __str__(self):
         return ("Nombre: " + self.nombre +
         ", Descripción: " + self.descripcion +
@@ -62,28 +63,25 @@ class Proyecto(models.Model):
         ", Fecha de Finalización: "+ str(self.fechaFinalizacion)+
         ", Usuarios: "+self.usuarios)
 
-class AsignarProyecto(models.Model):
-    usuario=models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    proyecto=models.ForeignKey(Proyecto, on_delete=models.CASCADE)
-    
-    def __str__(self):
-            return ("Usuario: " + self.usuario +
-            ", Proyectos: " + self.proyecto)
-
 class Etiqueta (models.Model):
     nombre=models.CharField(unique=True)
+  
     
     def __str__(self):
         return ("Nombre: "+self.name)
-    
-class Asignacion(models.Model):
+        
+class AsignacionTarea(models.Model):
+    usuario=models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    tarea=models.ForeignKey(Tarea, on_delete=models.CASCADE)
     observaciones=models.TextField()
     fechaAsignacion=models.DateTimeField()
     
     def __str__(self):
-        return ("Observaciones: "+self.observaciones+
+        return ("Usuario:"+self.usuario+
+        "Tarea: "+self.self.tarea+
+        "Observaciones: "+self.observaciones+
         ", Fecha Asignación: "+self.fechaAsignacion)
-
+               
 class Comentario(models.Model):
     contenido=models.TextField()
     fechaComentario=models.DateTimeField()
@@ -93,7 +91,22 @@ class Comentario(models.Model):
         ", Fecha Comentario: "+self.fechaComentario)
     
         
-     
+
+class AsignarProyecto(models.Model):
+    usuario=models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    proyecto=models.ForeignKey(Proyecto, on_delete=models.CASCADE)
+    
+    def __str__(self):
+            return ("Usuario: " + self.usuario +
+            ", Proyectos: " + self.proyecto)
+    
+class CrearTarea(models.Model):
+    usuario=models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    tarea=models.ForeignKey(Tarea, on_delete=models.CASCADE)
+        
+    def __str__(self):
+        return ("Usuario: " + self.usuario +
+        ", Tarea: " + self.tarea)
     
      
      
