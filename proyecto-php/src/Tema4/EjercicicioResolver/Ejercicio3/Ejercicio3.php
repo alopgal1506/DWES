@@ -50,11 +50,13 @@ if (isset($_POST['cesta'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda</title>
 </head>
+
 <body>
 
     <table border="1">
@@ -64,6 +66,10 @@ if (isset($_POST['cesta'])) {
                 <form method="post" action="cesta.php">
                     <button type="submit" name="Cesta">Cesta</button>
                 </form>
+                <p>
+                    <strong><?php echo array_sum(array_column($_SESSION['cesta'], 'cantidad')); ?></strong>
+                    Prod
+                </p>
             </td>
         </tr>
 
@@ -95,11 +101,6 @@ if (isset($_POST['cesta'])) {
             </tr>
         <?php endforeach; ?>
     </table>
-
-    <p>
-        Productos en la cesta: 
-        <strong><?php echo array_sum(array_column($_SESSION['cesta'], 'cantidad')); ?></strong>
-    </p>
-
 </body>
+
 </html>
