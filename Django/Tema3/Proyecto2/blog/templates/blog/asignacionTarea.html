@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tareas del proyecto</title>
+</head>
+<body>
+<h1>Tareas del proyecto: {{ proyecto.nombre }}</h1>
+
+{% for tarea in tareas %}
+<article>
+<h2>Título: {{ tarea.titulo }}</h2>
+<p>Descripción: {{ tarea.descripcion }}</p>
+<p>Prioridad: {{ tarea.prioridad }}</p>
+<p>Estado: {{ tarea.estado }}</p>
+<p>Completada: {{ tarea.completada|yesno:"Sí,No" }}</p>
+<p>Fecha de creación: {{ tarea.fechaCreacion }}</p>
+<p>Hora de vencimiento: {{ tarea.horaVencimiento }}</p>
+<p>Creada por: {{ tarea.crear_tareas.nombre }}</p>
+<p>Usuarios asignados: <br>
+{% for asignacion in tarea.asignaciontarea_set.all %}
+                Nombre: {{ asignacion.usuario.nombre }}<br>
+                Observaciones: {{ asignacion.observaciones }}<br>
+                Fecha de asignación: {{ asignacion.fechaAsignacion }}<br>
+{% empty %}
+                Sin usuarios asignados<br>
+{% endfor %}
+</p>
+</article>
+{% empty %}
+<p>Este proyecto no tiene tareas.</p>
+{% endfor %}
+
+<ul>
+<li><a href="{% url 'index' %}">Volver</a></li>
+</ul>
+</body>
+</html>
