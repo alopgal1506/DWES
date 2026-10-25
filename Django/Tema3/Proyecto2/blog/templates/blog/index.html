@@ -2,15 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <title>Mi primera pagina</title>
 </head>
 <body>
     <h1>Bienvenido a la Creacion de Tareas</h1>
 
     <nav>
         <ul>
-           <li><a href="{% url 'proyectos_list' %}">Proyectos</a></li>
-            
+            <li><a href="{% url 'proyectos_list' %}">Proyectos</a></li>
+            <li><a href="{% url 'asignacionTarea_list' 1 %}">Tareas del proyecto 1</a></li>
+            <li><a href="{% url 'usuariosTarea_list' 1 %}">Usuarios asignados a la tarea 1</a></li>
         </ul>
 
     </nav>
