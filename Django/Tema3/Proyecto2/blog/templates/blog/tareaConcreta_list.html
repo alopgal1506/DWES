@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tareas encontradas</title>
+</head>
+<body>
+
+    <h1>Tareas encontradas</h1>
+
+{% for asignacion in tarea %}
+    <h2>{{ asignacion.tarea.titulo }}</h2>
+    <p>Descripción: {{ asignacion.tarea.descripcion }}</p>
+    <p>Usuario asignado: {{ asignacion.usuario.nombre }}</p>
+    <p>Observaciones: {{ asignacion.observaciones }}</p>
+    <p>Fecha de asignación: {{ asignacion.fechaAsignacion }}</p>
+{% endfor %}
+
+</body>
+</html>

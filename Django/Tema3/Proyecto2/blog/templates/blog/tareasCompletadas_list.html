@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi tercera página</title>
+</head>
+<body>
+<h1>Tareas completadas entre dos Fechas</h1>
+
+{% for tarea in tarea %}
+    <h2>{{ tarea.titulo }}</h2>
+    <p>Estado: {{ tarea.estado }}</p>
+    <p>Fecha de creación: {{ tarea.fechaCreacion }}</p>
+{% endfor %}
+<ul>
+    <li><a href="{% url 'index' %}">Volver</a></li>
+</ul>
+</body>
+</html>

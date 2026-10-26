@@ -38,3 +38,20 @@ def usuariosTarea_list(request, tarea_id):
         'tarea': tarea,
         'asignaciones': asignaciones,
     })
+    
+#Ejercicio 5
+def tareaConcreta_list(request, texto_observacion, hora_asignada):
+    tarea = AsignacionTarea.objects.filter(
+        observaciones__icontains=texto_observacion,
+        fechaAsignacion__hour=hora_asignada
+    )
+
+    return render(request, 'blog/tareaConcreta_list.html', {'tarea': tarea})
+
+#Ejercicio 6
+def tareasCompletadas_list(request, estado_tarea, primerAnio, segundoAnio):
+    tarea=Tarea.objects.filter(estado__icontains=estado_tarea,fechaCreacion__year__range=(primerAnio, segundoAnio))
+    return render(request, 'blog/tareasCompletadas_list.html', {'tarea': tarea})
+
+#Ejercicio 7
+def 
