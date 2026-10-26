@@ -5,8 +5,7 @@
     <title>Mi primera pagina</title>
 </head>
 <body>
-    <h1>Bienvenido a la Creacion de Tareas</h1>
-
+    <h1>Último usuario concetado del Proyecto 1</h1>
     <nav>
         <ul>
             <li><a href="{% url 'proyectos_list' %}">Proyectos</a></li>
@@ -14,8 +13,8 @@
             <li><a href="{% url 'usuariosTarea_list' 1 %}">Usuarios asignados a la tarea 1</a></li>
             <li><a href="{% url 'tareaConcreta_list' 'SportHub' 18 %}">Tareas con observaciones de SportHub asignadas a las 18:00</a></li>
             <li><a href="{% url 'tareasCompletadas_list' 'Completada' 2024 2026 %}">Tareas completadas entre 2024 y 2026</a></li>
+            <li><a href="{% url 'ultimoUsuarioComentario_list' 4 %}">Último usuario del proyecto 4</a></li>
         </ul>
-
     </nav>
 </body>
 </html>

@@ -15,4 +15,6 @@ urlpatterns = [
    path('tareaConcreta/<str:texto_observacion>/<int:hora_asignada>/', views.tareaConcreta_list, name='tareaConcreta_list'),
    #Ejercicio 6
    path('tareasCompletadas/<str:estado_tarea>/<int:primerAnio>/<int:segundoAnio>/', views.tareasCompletadas_list, name='tareasCompletadas_list'),
+   #Ejercicio 7
+   path('ultimoUsuarioComentario/<int:proyecto_id>/', views.ultimoUsuarioComentario_list, name='ultimoUsuarioComentario_list'),
 ]

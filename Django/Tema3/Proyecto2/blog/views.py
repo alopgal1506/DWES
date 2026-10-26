@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Proyecto, AsignacionTarea, Tarea
+from .models import Proyecto, AsignacionTarea, Tarea, Comentario
 
 #Ejercicio 1
 def index(request):
@@ -54,4 +54,8 @@ def tareasCompletadas_list(request, estado_tarea, primerAnio, segundoAnio):
     return render(request, 'blog/tareasCompletadas_list.html', {'tarea': tarea})
 
 #Ejercicio 7
-def 
+def ultimoUsuarioComentario_list(request, proyecto_id):
+    comentario = Comentario.objects.filter(tareas__proyecto_crea_tareas_id=proyecto_id).order_by('-fechaComentario').first()
+    return render(request, 'blog/ultimoUsuarioComentario_list.html', {'comentario': comentario})
+
+#Ejericio 8
