@@ -5,16 +5,18 @@
     <title>Mi primera pagina</title>
 </head>
 <body>
-    <h1>Último usuario concetado del Proyecto 1</h1>
+    <h1>Página de Inicio</h1>
     <nav>
         <ul>
-            <li><a href="{% url 'proyectos_list' %}">Proyectos</a></li>
-            <li><a href="{% url 'asignacionTarea_list' 1 %}">Tareas del proyecto 1</a></li>
-            <li><a href="{% url 'usuariosTarea_list' 1 %}">Usuarios asignados a la tarea 1</a></li>
-            <li><a href="{% url 'tareaConcreta_list' 'SportHub' %}">Tareas con observaciones de SportHub asignadas a las 18:00</a></li>
-            <li><a href="{% url 'tareasCompletadas_list' 'Completada' 2024 2026 %}">Tareas completadas entre 2024 y 2026</a></li>
-            <li><a href="{% url 'ultimoUsuarioComentario_list' 4 %}">Último usuario del proyecto 4</a></li>
-            <li><a href="{% url 'comentarioTarea_list' 3 'Sister' 2024 %}">Tarea comience por Control</a></li>
+            <li><a href="{% url 'proyectos_list' %}">Ejercicio 2</a></li>
+            <li><a href="{% url 'asignacionTarea_list' 1 %}">Ejercicio 3</a></li>
+            <li><a href="{% url 'usuariosTarea_list' 1 %}">Ejercicio 4</a></li>
+            <li><a href="{% url 'tareaConcreta_list' 'SportHub' %}">Ejercicio 5</a></li>
+            <li><a href="{% url 'tareasCompletadas_list' 'Completada' 2024 2026 %}">Ejercicio 6</a></li>
+            <li><a href="{% url 'ultimoUsuarioComentario_list' 4 %}">Ejercicio 7</a></li>
+            <li><a href="{% url 'comentarioTarea_list' 3 'Sister' 2024 %}">Ejercicio 8</a></li>
+            <li><a href="{% url 'etiquetas_list' 15 %}">Ejercicio 9</a></li>
+            <li><a href="{% url 'usuariosNoAsignado_list' 13 %}">Ejercicio 10</a></li>
         </ul>
     </nav>
 </body>

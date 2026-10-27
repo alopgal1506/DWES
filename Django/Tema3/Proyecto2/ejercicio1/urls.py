@@ -22,3 +22,7 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('', include('blog.urls')),
 ]
+handler404 = "blog.views.mi_error_404"
+handler400 = "blog.views.mi_error_400"
+handler403 = "blog.views.mi_error_403"
+handler500 = "blog.views.mi_error_500"

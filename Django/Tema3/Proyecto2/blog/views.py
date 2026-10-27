@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Proyecto, AsignacionTarea, Tarea, Comentario
-
+from django.shortcuts import render
+from .models import Proyecto, AsignacionTarea, Tarea, Comentario, Etiqueta,Usuario
+from django.views.defaults import page_not_found
 #Ejercicio 1
 def index(request):
     return render(request, 'blog/index.html')
@@ -37,5 +37,29 @@ def ultimoUsuarioComentario_list(request, proyecto_id):
 
 #Ejercicio 8
 def comentarioTarea_list(request, tarea_id, palabra, anyo):
-    comentarios = (Comentario.objects.select_related("tareas", "usuarios_comentan").filter(tareas=tarea_id,contenido__istartswith=palabra,fechaComentario__year=anyo))
+    comentarios = Comentario.objects.select_related("tareas", "usuarios_comentan").filter(tareas=tarea_id,contenido__istartswith=palabra,fechaComentario__year=anyo)
     return render(request, 'blog/comentarioTarea_list.html', {'comentarios': comentarios})
+
+#Ejercicio 9
+
+def etiquetas_list(request, id_proyecto):
+    etiquetas = Etiqueta.objects.filter(etiqueta__proyecto_crea_tareas=id_proyecto).distinct()
+    return render(request, 'blog/etiquetas_list.html', {'etiquetas': etiquetas})
+
+#Ejercicio 10
+def usuariosNoAsignado_list(request, id_tarea):
+    usuarios=Usuario.objects.prefetch_related("asignar_usuarios").exclude(asignar_usuarios=id_tarea)
+    return render(request, 'blog/usuariosNoAsignado_list.html', {'usuarios': usuarios})
+
+#Ejercicio 11
+def mi_error_404(request, exception=None):
+    return render(request, 'errores/404.html', None, None,404)
+
+def mi_error_403(request, exception):
+    return render(request, 'errores/403.html', None, None, 403)
+
+def mi_error_400(request, exception):
+    return render(request, 'errores/400.html', None, None, 400)
+
+def mi_error_500(request):
+    return render(request, 'errores/500.html', None, None, 500)

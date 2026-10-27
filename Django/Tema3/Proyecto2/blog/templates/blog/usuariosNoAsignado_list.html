@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios no asignados</title>
+</head>
+<body>
+    <h1>Usuarios no asignados a la tarea</h1>
+
+    <ul>
+    {% for usuario in usuarios %}
+        <li><p>Usuario: {{ usuario.nombre }}</p></li>
+        <li><p>Correo: {{ usuario.correoElectronico }}</p></li>
+        <li><p>Fecha Registro: {{ usuario.fechaRegistro }}</p></li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'index' %}">Volver</a>
+</body>
+</html>

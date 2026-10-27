@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi segunda página</title>
+</head>
+<body>
+    <h1>Etiquetas usadas en el proyecto</h1>
+    <ul>
+    {% for etiqueta in etiquetas %}
+        <li>{{ etiqueta.nombre }}</li>
+    {% endfor %}
+    </ul>
+<ul>
+    <li><a href="{% url 'index' %}">Volver</a></li>
+</ul>
+</body>
+</html>
