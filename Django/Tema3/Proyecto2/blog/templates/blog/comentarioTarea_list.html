@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi tercera página</title>
+</head>
+<body>
+    <h1>Coemntarios d una Tarea Concreta</h1>
+
+    {% if comentario %}
+        <h1>Nombre Tarea: {{comentario.usuarios_comentan.nombre}}</h1>
+        <p>Contenido: {{ comentario.contenido}}</p>
+        <p>Fecha Comentario: {{ comentario.fechaComentario }}</p>
+    {% endif %}
+
+<ul>
+    <li><a href="{% url 'index' %}">Volver</a></li>
+</ul>
+</body>
+</html>

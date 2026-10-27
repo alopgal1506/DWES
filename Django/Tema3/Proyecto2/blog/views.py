@@ -12,40 +12,17 @@ def proyectos_list(request):
 
 #Ejercicio 3
 def asignacionTarea_list(request, proyecto_id):
-    proyecto = get_object_or_404(Proyecto, id=proyecto_id)
-
-    tareas = (Tarea.objects
-              .filter(proyecto_crea_tareas=proyecto)
-              .select_related('crear_tareas')
-              .prefetch_related('asignaciontarea_set__usuario')
-              .order_by('-fechaCreacion', '-id'))
-
-    return render(request, 'blog/asignacionTarea_list.html', {
-        'proyecto': proyecto,
-        'tareas': tareas,
-    })
+    tareas = (Tarea.objects.select_related("proyecto_crea_tareas").filter(proyecto_crea_tareas=proyecto_id).order_by('-fechaCreacion'))
+    return render(request, 'blog/asignacionTarea_list.html', {'tareas': tareas})
 
 #Ejercicio 4
 def usuariosTarea_list(request, tarea_id):
-    tarea = get_object_or_404(Tarea, id=tarea_id)
-
-    asignaciones = (AsignacionTarea.objects
-                    .filter(tarea=tarea)
-                    .select_related('usuario')
-                    .order_by('fechaAsignacion'))
-
-    return render(request, 'blog/usuarioTarea_list.html', {
-        'tarea': tarea,
-        'asignaciones': asignaciones,
-    })
+    asignaciones = (AsignacionTarea.objects.select_related("tarea", "usuario").filter(tarea=tarea_id).order_by('fechaAsignacion'))
+    return render(request, 'blog/usuarioTarea_list.html', {'asignaciones': asignaciones})
     
 #Ejercicio 5
-def tareaConcreta_list(request, texto_observacion, hora_asignada):
-    tarea = AsignacionTarea.objects.filter(
-        observaciones__icontains=texto_observacion,
-        fechaAsignacion__hour=hora_asignada
-    )
-
+def tareaConcreta_list(request, texto_observacion):
+    tarea = AsignacionTarea.objects.select_related("tarea", "usuario").filter(observaciones__icontains=texto_observacion)
     return render(request, 'blog/tareaConcreta_list.html', {'tarea': tarea})
 
 #Ejercicio 6
@@ -58,4 +35,7 @@ def ultimoUsuarioComentario_list(request, proyecto_id):
     comentario = Comentario.objects.filter(tareas__proyecto_crea_tareas_id=proyecto_id).order_by('-fechaComentario').first()
     return render(request, 'blog/ultimoUsuarioComentario_list.html', {'comentario': comentario})
 
-#Ejericio 8
+#Ejercicio 8
+def comentarioTarea_list(request, tarea_id, palabra, anyo):
+    comentarios = (Comentario.objects.select_related("tareas", "usuarios_comentan").filter(tareas=tarea_id,contenido__istartswith=palabra,fechaComentario__year=anyo))
+    return render(request, 'blog/comentarioTarea_list.html', {'comentarios': comentarios})
