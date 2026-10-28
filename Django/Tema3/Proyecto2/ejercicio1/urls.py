@@ -16,11 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+#from blog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
     path('', include('blog.urls')),
+    #path('probar-400/', views.probar_400),
+    #path('probar-403/', views.probar_403),
+    #path("probar-404/", views.probar_404, name="probar_404"),
+    #path("probar-500/", views.probar_error_500, name="probar_500"),
 ]
 handler404 = "blog.views.mi_error_404"
 handler400 = "blog.views.mi_error_400"

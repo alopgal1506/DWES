@@ -63,3 +63,22 @@ def mi_error_400(request, exception):
 
 def mi_error_500(request):
     return render(request, 'errores/500.html', None, None, 500)
+
+#Error 400
+#from django.core.exceptions import SuspiciousOperation
+#def probar_400(request):
+    #raise SuspiciousOperation("Prueba del error 400")
+
+#Error 403 
+#from django.core.exceptions import PermissionDenied, SuspiciousOperation
+#def probar_403(request):
+    #raise PermissionDenied
+
+#Error 404
+#from django.http import Http404
+#def probar_404(request):
+    #raise Http404("Prueba del error 404")
+
+#Error 500
+#def probar_error_500(request):
+    #resultado = 1 / 0
