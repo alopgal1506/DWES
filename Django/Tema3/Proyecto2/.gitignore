@@ -1,0 +1,99 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ===== Entornos virtuales =====
+venv/
+.venv/
+env/
+ENV/
+.env/
+
+# ===== Variables de entorno y secretos =====
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+
+# ===== Django =====
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+db.sqlite3-shm
+db.sqlite3-wal
+
+# Archivos subidos por usuarios
+media/
+
+# Fixtures y datos locales
+fixtures/
+**/fixtures/
+*.fixture.json
+*.fixture.yaml
+*.fixture.xml
+dump.json
+dumpdata*.json
+data.json
+backup*.json
+*.sql
+*.dump
+*.sqlite3
+*.db
+local_data/
+data/
+
+# Archivos estáticos recolectados (collectstatic)
+staticfiles/
+static_root/
+
+# Migraciones (descomenta SOLO si no quieres versionarlas; lo habitual es SÍ versionarlas)
+# */migrations/*.py
+# */migrations/*.pyc
+# !*/migrations/__init__.py
+
+# ===== Testing y cobertura =====
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# ===== Empaquetado y distribución =====
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# ===== Celery =====
+celerybeat-schedule
+celerybeat.pid
+
+# ===== Node / frontend (si usas npm, webpack, etc.) =====
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# ===== IDEs y editores =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== Sistema operativo =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===== Docker (opcional) =====
+docker-compose.override.yml

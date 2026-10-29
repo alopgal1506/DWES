@@ -23,4 +23,9 @@ urlpatterns = [
    path('etiquetas_list/<int:id_proyecto>/', views.etiquetas_list, name='etiquetas_list'),
    #Ejercicio 10
    path('usuariosNoAsignado_list/<int:id_tarea>/', views.usuariosNoAsignado_list, name='usuariosNoAsignado_list'),
+   #Errores
+   path('probar-400/', views.probar_400, name='probar_400'),
+   path('probar-403/', views.probar_403, name='probar_403'),
+   path('probar-404/', views.probar_404, name='probar_404'),
+   path('probar-500/', views.probar_500, name='probar_500'),
 ]
