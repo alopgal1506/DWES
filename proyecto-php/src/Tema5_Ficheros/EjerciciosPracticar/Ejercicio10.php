@@ -22,22 +22,37 @@ resultado debe ser el mismo que el original añadiendo la coletilla sort, por ej
 que cada palabra ocupa una línea.*/
 
 function leerArchivo($nombreFichero){
+    $palabras=array();
+    $contador=0;
 
-    $fp = fopen(__DIR__ . "/../archivos/" .$nombreFichero."txt", "r");
+    $fp = fopen(__DIR__ . "/../archivos/" .$nombreFichero.".txt", "r");
 
-    while(){
-
+    while(($linea = fgets($fp)) !== false){
+        $palabras[$contador]=trim($linea);
+        $contador++;
+        sort($palabras);
     }
-
-    fclose($fp1);
+    fclose($fp);
+    return $palabras;
 }
 
-leerArchivo();
+function escribirArchivo($nombreFichero, $palabras){
+    $file=fopen(__DIR__ . "/../archivos/".$nombreFichero."_sort.txt", "w");
+    foreach($palabras as $palabra){
+        fwrite($file, $palabra . PHP_EOL);
+    }
+    fclose($file);
+}
+
 
 if(isset($_POST['nombreFichero'])){
     $nombreFichero=$_POST['nombreFichero'];
+    $arrayResultado=leerArchivo($nombreFichero);
+    escribirArchivo($nombreFichero, $arrayResultado);
 }
 
 /*Darle permisos de escritura
  sudo chmod 777 /home/usuario/Escritorio/DAW/DWES/proyecto-php/src/Tema5_Ficheros/archivos
  */
+
+/*Odenar números de mayor a menor rsort($array) */

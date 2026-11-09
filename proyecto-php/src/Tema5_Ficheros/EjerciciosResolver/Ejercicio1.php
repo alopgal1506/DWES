@@ -1,3 +1,51 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['mascotas'])) {
+    $_SESSION['mascotas'] = [];
+}
+
+function escribirFichero(){
+
+    $ruta = __DIR__ . "/../archivos/mascotas.txt";
+
+    $file = fopen($ruta, "a");
+
+    $fecha = date("d-m-Y");
+    $cabecera = "#" . $fecha . "#";
+
+    $contenido = file_get_contents($ruta);
+
+    if (strpos($contenido, $cabecera) === false) {
+        fwrite($file, $cabecera . PHP_EOL);
+    }
+
+    foreach ($_SESSION['mascotas'] as $nombre => $datos) {
+        fwrite($file, $nombre . "-" . $datos['tipo'] . "-" . $datos['edad'] . PHP_EOL);
+    }
+
+    fclose($file);
+}
+
+
+if (isset($_POST['Anadir'])) {
+    $nombre = $_POST['nombre'];
+    $tipo = $_POST['tipo'];
+    $edad = $_POST['edad'];
+
+    $_SESSION['mascotas'][$nombre] = array(
+        "tipo" => $tipo,
+        "edad" => $edad
+    );
+}
+
+if(isset($_POST['Grabar_Mascotas'])){
+    escribirFichero();
+    $_SESSION['mascotas'] = [];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,36 +54,29 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="get">
-        Primer número: <input type="number" name="a"><br>
-        Segundo número: <input type="number" name="b"><br>
-        Tercer número: <input type="number" name="c"><br>
-        <input type="submit" value="Enviar">
+    <form action="" method="post">
+        Nombre: <input type="text" name="nombre"><br>
+        Tipo: <input type="text" name="tipo"><br>
+        Edad: <input type="number" name="edad"><br>
+        <input type="submit" name="Anadir" value="Anadir">
+        <input type="submit" name="Grabar_Mascotas" value="Grabar Mascotas">
     </form>
+
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Edad</th>
+        </tr>
+           <?php
+            foreach ($_SESSION['mascotas'] as $nombre => $datos) {
+                echo "<tr>";
+                echo "<td>".$nombre."</td>";
+                echo "<td>".$datos['tipo']."</td>";
+                echo "<td>".$datos['edad']."</td>";
+                echo "</tr>";
+            }
+           ?>
+    </table>
 </body>
 </html>
-
-<?php
-/*Una función (tipo procedimiento, no hay valor devuelto) denominada escribirTresNumeros que reciba tres números
-enteros como parámetros y proceda a escribir dichos números en tres líneas en un archivo denominado
-datosEjercicio.txt. Si el archivo no existe, debe crearlo. */
-function escribirArchivo($a, $b, $c){
-    $file=fopen(__DIR__ . "/../archivos/datosEjercicio.txt", "w");
-    fwrite($file, $a . PHP_EOL);
-    fwrite($file, $b . PHP_EOL);
-    fwrite($file, $c . PHP_EOL);
-
-    fclose($file);
-}
-
-if(isset($_GET['a'])&& isset($_GET['b']) && isset($_GET['c'])){
-    $a=$_GET['a'];
-    $b=$_GET['b'];
-    $c=$_GET['c'];
-    escribirArchivo($a, $b, $c);
-}
-
-/*Darle permisos de escritura
- sudo chmod 777 /home/usuario/Escritorio/DAW/DWES/proyecto-php/src/Tema5_Ficheros/archivos
- */
-?>
