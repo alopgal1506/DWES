@@ -4,31 +4,40 @@ resultante aparezcan las líneas de los primeros dos ficheros mezcladas, es deci
 fichero, la segunda será del segundo fichero, la tercera será la siguiente del primer fichero, etc. Los nombres de los
 dos ficheros origen y el nombre del fichero destino se deben pasar a través de un formulario. Hay que tener en
 cuenta que los ficheros de donde se van cogiendo las líneas pueden tener tamaños diferentes.*/
-function escribirArchivo($texto){
-    $file=fopen(__DIR__ . "/../archivos/datosEjercicio.txt", "a");
-    fwrite($file, $texto . PHP_EOL);
+
+function leerArchivo(){
+
+    $fp1 = fopen(__DIR__ . "/../archivos/primerFichero.txt", "r");
+    $fp2 = fopen(__DIR__ . "/../archivos/segundoFichero.txt", "r");
+    $file = fopen(__DIR__ . "/../archivos/archivoConjunto.txt", "w");
+
+    $lineaPrimero = fgets($fp1);
+    $lineaSegundo = fgets($fp2);
+
+    while ($lineaPrimero !== false || $lineaSegundo !== false) {
+
+        if ($lineaPrimero !== false && $lineaSegundo !== false) {
+            fwrite($file, rtrim($lineaPrimero). PHP_EOL);
+            fwrite($file, rtrim($lineaSegundo). PHP_EOL);
+
+        } else if ($lineaPrimero !== false) {
+            fwrite($file, rtrim($lineaPrimero). PHP_EOL);
+
+        } else {
+            fwrite($file, rtrim($lineaSegundo). PHP_EOL);
+        }
+
+        $lineaPrimero = fgets($fp1);
+        $lineaSegundo = fgets($fp2);
+    }
+
+    fclose($fp1);
+    fclose($fp2);
     fclose($file);
 }
 
-function leerArchivo(){
-    $resultado=0;
-    $fp=fopen(__DIR__ . "/../archivos/datosEjercicio.txt", "r");
-    while (($linea = fgets($fp)) !== false) {
-        echo "El resultado del archivo: ".$linea."<br>";
-    }
-    fclose($fp);
-}
-
-if(isset($_GET['texto'])  && trim($_GET['texto']) !== ""){
-    $texto=$_GET['texto'];
-    escribirArchivo($texto);
-}
-
-if(($_GET['accion'] ?? "") === "Terminar"){
-        leerArchivo();
-}
+leerArchivo();
 
 /*Darle permisos de escritura
  sudo chmod 777 /home/usuario/Escritorio/DAW/DWES/proyecto-php/src/Tema5_Ficheros/archivos
  */
-?>
