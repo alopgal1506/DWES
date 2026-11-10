@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+
+{% block cabecera %}
+     <h1>Usuarios asignados a la tarea: {{ tarea.titulo }}</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <ul>
+        {% for asignacion in asignaciones %}
+            <article>
+                <h2>Nombre: {{ asignacion.usuario.nombre }}</h2>
+                <p>Correo: {{ asignacion.usuario.correoElectronico }}</p>
+                <p>Fecha de asignación: {{ asignacion.fechaAsignacion }}</p>
+                <p>Observaciones: {{ asignacion.observaciones|default:"-" }}</p>
+            </article>
+        {% empty %}
+            <p>Esta tarea no tiene usuarios asignados.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'index' %}">Volver</a>
+
+{% endblock %}

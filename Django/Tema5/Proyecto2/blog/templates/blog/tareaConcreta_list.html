@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+
+{% block cabecera %}
+    <h1>Tareas encontradas</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    {% for asignacion in tarea %}
+        <h2>{{ asignacion.tarea.titulo }}</h2>
+        <p>Descripción: {{ asignacion.tarea.descripcion }}</p>
+        <p>Usuario asignado: {{ asignacion.usuario.nombre }}</p>
+        <p>Observaciones: {{ asignacion.observaciones }}</p>
+        <p>Fecha de asignación: {{ asignacion.fechaAsignacion }}</p>
+    {% endfor %}
+
+    <ul>
+        <li><a href="{% url 'index' %}">Volver</a></li>
+    </ul>
+
+{% endblock %}

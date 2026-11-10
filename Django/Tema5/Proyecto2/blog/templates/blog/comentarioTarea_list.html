@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block cabecera %}
+    <h1>Comentarios de una Tarea Concreta</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    {% for comentario in comentarios %}
+        <h2>Usuario: {{ comentario.usuarios_comentan.nombre }}</h2>
+        <p>Contenido: {{ comentario.contenido }}</p>
+        <p>Fecha Comentario: {{ comentario.fechaComentario }}</p>
+        <hr>
+    {% endfor %}
+
+    <ul>
+        <li><a href="{% url 'index' %}">Volver</a></li>
+    </ul>
+
+{% endblock %}

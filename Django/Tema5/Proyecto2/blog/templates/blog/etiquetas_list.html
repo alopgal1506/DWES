@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+
+{% block cabecera %}
+    <h1>Etiquetas usadas en el proyecto</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <ul>
+        {% for etiqueta in etiquetas %}
+            <li>{{ etiqueta.nombre }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        <li><a href="{% url 'index' %}">Volver</a></li>
+    </ul>
+
+{% endblock %}

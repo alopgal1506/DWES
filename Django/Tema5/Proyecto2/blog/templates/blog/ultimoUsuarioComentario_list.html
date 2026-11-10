@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block cabecera %}
+    <h1>Último usuario que ha comentado</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    {% if comentario %}
+        <p>Usuario: {{ comentario.usuarios_comentan.nombre }}</p>
+        <p>Tarea: {{ comentario.tareas.titulo }}</p>
+        <p>Comentario: {{ comentario.contenido }}</p>
+        <p>Fecha: {{ comentario.fechaComentario }}</p>
+    {% endif %}
+
+    <ul>
+        <li><a href="{% url 'index' %}">Volver</a></li>
+    </ul>
+
+{% endblock %}

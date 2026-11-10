@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi primera página</title>
+
+    {% block cabecera %}
+    {% endblock %}
+
+</head>
+<body>
+    {% include "blog/nav.html" %}
+
+    {% block contenido %}
+    {% endblock %}
+
+    {% include "blog/footer.html" %}
+</body>
+</html>

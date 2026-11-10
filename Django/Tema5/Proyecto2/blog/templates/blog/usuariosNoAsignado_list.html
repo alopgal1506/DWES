@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+
+{% block cabecera %}
+    <h1>Usuarios no asignados a la tarea</h1>
+{% endblock %}
+
+{% block contenido %}
+
+    <ul>
+        {% for usuario in usuarios %}
+            <li><p>Usuario: {{ usuario.nombre }}</p></li>
+            <li><p>Correo: {{ usuario.correoElectronico }}</p></li>
+            <li><p>Fecha Registro: {{ usuario.fechaRegistro }}</p></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'index' %}">Volver</a>
+
+{% endblock %}
