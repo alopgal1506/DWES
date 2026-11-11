@@ -34,6 +34,7 @@ if (isset($_POST['codigo']) && isset($_POST['nombre']) && isset($_POST['precio']
 }
 
 
+
 ?>
 
 <!DOCTYPE html>
