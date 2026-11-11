@@ -51,8 +51,4 @@ if(isset($_POST['nombreFichero'])){
     escribirArchivo($nombreFichero, $arrayResultado);
 }
 
-/*Darle permisos de escritura
- sudo chmod 777 /home/usuario/Escritorio/DAW/DWES/proyecto-php/src/Tema5_Ficheros/archivos
- */
-
 /*Odenar números de mayor a menor rsort($array) */
