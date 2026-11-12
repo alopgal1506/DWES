@@ -1,19 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Mi primera página</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mi primera página</title>
+        <link rel="stylesheet" href="{% static 'blog/css/estilos.css' %}">
+        <script src="{% static 'blog/js/script.js' %}" defer></script>
+    </head>
+    <body>
+        {% include "blog/nav.html" %}
 
-    {% block cabecera %}
-    {% endblock %}
+        <header>
+            {% block cabecera %}{% endblock %}
+        </header>
 
-</head>
-<body>
-    {% include "blog/nav.html" %}
+        <main>
+            {% block contenido %}{% endblock %}
+            <section class="tarjeta">
+                <img src="{% static 'blog/img/imagen.jpeg' %}" alt="Imagen de bienvenida">
+                <h2>¡Bienvenido a mi página!</h2>
+                <button type="button" id="boton">Pulsa aquí</button>
+            </section>
+        </main>
 
-    {% block contenido %}
-    {% endblock %}
-
-    {% include "blog/footer.html" %}
-</body>
+        {% include "blog/footer.html" %}
+    </body>
 </html>
