@@ -8,12 +8,7 @@
 
     <ul>
         {% for asignacion in asignaciones %}
-            <article>
-                <h2>Nombre: {{ asignacion.usuario.nombre }}</h2>
-                <p>Correo: {{ asignacion.usuario.correoElectronico }}</p>
-                <p>Fecha de asignación: {{ asignacion.fechaAsignacion }}</p>
-                <p>Observaciones: {{ asignacion.observaciones|default:"-" }}</p>
-            </article>
+            {% include "usuarioTarea_list_item.html"%}
         {% empty %}
             <p>Esta tarea no tiene usuarios asignados.</p>
         {% endfor %}

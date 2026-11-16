@@ -7,10 +7,7 @@
 {% block contenido %}
 
     {% for comentario in comentarios %}
-        <h2>Usuario: {{ comentario.usuarios_comentan.nombre }}</h2>
-        <p>Contenido: {{ comentario.contenido }}</p>
-        <p>Fecha Comentario: {{ comentario.fechaComentario }}</p>
-        <hr>
+        {% include "comentarioTarea_list_item.html"%}
     {% endfor %}
 
     <ul>

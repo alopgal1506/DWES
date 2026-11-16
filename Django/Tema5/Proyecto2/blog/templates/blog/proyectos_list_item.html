@@ -1,0 +1,14 @@
+<article>
+    <h2>Nombre: {{ proyecto.nombre }}</h2>
+    <p>Descripción: {{ proyecto.descripcion }}</p>
+    <p>Duración estimada: {{ proyecto.duracionEstimada }}</p>
+    <p>Fecha Inicio: {{ proyecto.fechaInicio }}</p>
+    <p>Fecha Finalización: {{ proyecto.fechaFinalizacion }}</p>
+    <p>Creado por: {{ proyecto.crear_usuarios.nombre }}</p>
+
+    <p>Usuarios: <br>
+        {% for usuario in proyecto.usuarios.all %}
+            {% include "proyectos_list_usuarios.html"%}
+        {% endfor %}
+    </p>
+</article>

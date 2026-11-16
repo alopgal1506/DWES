@@ -7,9 +7,7 @@
 {% block contenido %}
 
     {% for tarea in tarea %}
-        <h2>{{ tarea.titulo }}</h2>
-        <p>Estado: {{ tarea.estado }}</p>
-        <p>Fecha de creación: {{ tarea.fechaCreacion }}</p>
+        {% include "tareasCompletadas_list_item.html"%}
     {% endfor %}
 
     <ul>
