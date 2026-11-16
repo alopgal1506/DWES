@@ -1,17 +1,14 @@
 {% extends "blog/base.html" %}
-
 {% block cabecera %}
     <h1>Listado de tareas</h1>
 {% endblock %}
-
 {% block contenido %}
-
     {% for tarea in tareas %}
-        {% include "asignacionTarea_list_item.html" %}
+        {% include "blog/asignacionTarea_list_item.html" %}
+    {% empty %}
+        <p>No hay tareas asignadas a este proyecto.</p>
     {% endfor %}
-
     <ul>
         <li><a href="{% url 'index' %}">Volver</a></li>
     </ul>
-
 {% endblock %}

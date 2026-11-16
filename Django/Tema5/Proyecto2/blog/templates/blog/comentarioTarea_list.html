@@ -1,17 +1,18 @@
 {% extends "blog/base.html" %}
-
 {% block cabecera %}
     <h1>Comentarios de una Tarea Concreta</h1>
 {% endblock %}
-
 {% block contenido %}
-
     {% for comentario in comentarios %}
-        {% include "comentarioTarea_list_item.html"%}
+        {% if comentario.contenido and comentario.contenido|length > 10 %}
+            {% include "blog/comentarioTarea_list_item.html" %}
+        {% else %}
+            <p>El comentario está vacío o es demasiado corto.</p>
+        {% endif %}
+    {% empty %}
+        <p>No hay comentarios para esta tarea.</p>
     {% endfor %}
-
     <ul>
         <li><a href="{% url 'index' %}">Volver</a></li>
     </ul>
-
 {% endblock %}

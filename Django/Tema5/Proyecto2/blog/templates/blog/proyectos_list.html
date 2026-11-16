@@ -7,7 +7,13 @@
 {% block contenido %}
 
     {% for proyecto in proyectos_list %}
-        {% include "proyectos_list_item.html"%}
+        {% if not proyecto.usuarios.all %}
+            <p>Este proyecto no tiene usuarios.</p>
+        {% else %}
+            {% include "blog/proyectos_list_item.html" %}
+        {% endif %}
+    {% empty %}
+        <p>No existen proyectos.</p>
     {% endfor %}
 
     <ul>

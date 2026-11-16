@@ -1,17 +1,14 @@
 {% extends "blog/base.html" %}
-
 {% block cabecera %}
     <h1>Tareas completadas entre dos Fechas</h1>
 {% endblock %}
-
 {% block contenido %}
-
     {% for tarea in tarea %}
-        {% include "tareasCompletadas_list_item.html"%}
+        {% include "blog/tareasCompletadas_list_item.html" %}
+    {% empty %}
+        <p>No existen tareas completadas</p>
     {% endfor %}
-
     <ul>
         <li><a href="{% url 'index' %}">Volver</a></li>
     </ul>
-
 {% endblock %}

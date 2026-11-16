@@ -1,17 +1,18 @@
 {% extends "blog/base.html" %}
-
 {% block cabecera %}
     <h1>Tareas encontradas</h1>
 {% endblock %}
-
 {% block contenido %}
-
     {% for asignacion in tarea %}
-        {% include "tareaConcreta_list_item.html"%}
+        {% if asignacion.observaciones or asignacion.tarea.descripcion %}
+            {% include "blog/tareaConcreta_list_item.html" %}
+        {% else %}
+            <p>La asignación no tiene observaciones ni descripción.</p>
+        {% endif %}
+    {% empty %}
+        <p>No existe ninguna tarea concreta con esa asignación.</p>
     {% endfor %}
-
     <ul>
         <li><a href="{% url 'index' %}">Volver</a></li>
     </ul>
-
 {% endblock %}

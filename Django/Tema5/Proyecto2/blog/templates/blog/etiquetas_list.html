@@ -1,19 +1,16 @@
 {% extends "blog/base.html" %}
-
 {% block cabecera %}
     <h1>Etiquetas usadas en el proyecto</h1>
 {% endblock %}
-
 {% block contenido %}
-
     <ul>
         {% for etiqueta in etiquetas %}
-            {% include "etiquetas_list_item.html"%}
+            {% include "blog/etiquetas_list_item.html" %}
+        {% empty %}
+            <p>No existen etiquetas.</p>
         {% endfor %}
     </ul>
-
     <ul>
         <li><a href="{% url 'index' %}">Volver</a></li>
     </ul>
-
 {% endblock %}

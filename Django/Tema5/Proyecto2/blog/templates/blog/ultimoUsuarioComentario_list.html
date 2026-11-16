@@ -1,17 +1,14 @@
 {% extends "blog/base.html" %}
-
 {% block cabecera %}
     <h1>Último usuario que ha comentado</h1>
 {% endblock %}
-
 {% block contenido %}
-
-    {% if comentario %}
-       {% include "ultimoUsuarioComentario_list_item.html"%}
+    {% if comentario and comentario.contenido %}
+        {% include "blog/ultimoUsuarioComentario_list_item.html" %}
+    {% else %}
+        <p>Ningún usuario ha comentado.</p>
     {% endif %}
-
     <ul>
         <li><a href="{% url 'index' %}">Volver</a></li>
     </ul>
-
 {% endblock %}

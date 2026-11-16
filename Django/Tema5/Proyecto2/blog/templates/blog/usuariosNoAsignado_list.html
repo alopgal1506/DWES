@@ -1,17 +1,14 @@
 {% extends "blog/base.html" %}
-
 {% block cabecera %}
     <h1>Usuarios no asignados a la tarea</h1>
 {% endblock %}
-
 {% block contenido %}
-
     <ul>
         {% for usuario in usuarios %}
-           {% include "usuariosNoAsignado_list_item.html"%}
+            {% include "blog/usuariosNoAsignado_list_item.html" %}
+        {% empty %}
+            <p>No exise ningun usuario no asignado.</p>
         {% endfor %}
     </ul>
-
     <a href="{% url 'index' %}">Volver</a>
-
 {% endblock %}

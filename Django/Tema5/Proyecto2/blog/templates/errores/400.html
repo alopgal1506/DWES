@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Página no encontrada</title>
-</head>
-<body>
-    <h1>Error 400</h1>
-    <p>La petición no es válida.</p>
-    <a href="{% url 'index' %}">Volver al inicio</a>
-</body>
-</html>
+{% extends "blog/base.html" %}
+{% block cabecera %}{% endblock %}
+{% block contenido %}
+    {% include "errores/400_item.html" %}
+    <ul>
+        <li><a href="{% url 'index' %}">Volver</a></li>
+    </ul>
+{% endblock %}
