@@ -5,9 +5,11 @@
 {% block contenido %}
     <ul>
         {% for usuario in usuarios %}
-            {% include "blog/usuariosNoAsignado_list_item.html" %}
+            {% if not usuario.tareas.all %}
+                {% include "blog/usuariosNoAsignado_list_item.html" %}
+            {% endif %}
         {% empty %}
-            <p>No exise ningun usuario no asignado.</p>
+            <p>No existe ningún usuario no asignado.</p>
         {% endfor %}
     </ul>
     <a href="{% url 'index' %}">Volver</a>

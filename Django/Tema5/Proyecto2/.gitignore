@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Django
+*.log
+local_settings.py
+
+# Archivos estáticos y multimedia generados
+/staticfiles/
+/media/
+
+# Base de datos local
+# No ignoramos los fixtures
+# *.sqlite3
+
+# Variables de entorno
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.bak

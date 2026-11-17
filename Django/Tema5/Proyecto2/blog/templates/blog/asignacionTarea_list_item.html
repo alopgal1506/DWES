@@ -1,9 +1,14 @@
 <article>
-    <h2>Titulo: {{ tarea.titulo |upper }}</h2>
+    <h2>Titulo: {{ tarea.titulo|upper }}</h2>
     <p>Descripción: {{ tarea.descripcion }}</p>
+    <p>Descripción: {{ tarea.descripcion|length }}</p>
+    <p>Número de palabras: {{ tarea.descripcion|wordcount }}</p>
+    <p>Cortar Palabra: {{ tarea.descripcion|cut:"Descripción" }}</p>
+    <p>Recortar número de carácteres: {{ tarea.descripcion|truncatechars:4 }}</p>
+    <p>Mostrar un valor alternativo: {{ tarea.descripcion|default:"Descripción vacia" }}</p>
     <p>Prioridad: {{ tarea.prioridad }}</p>
-    <p>Estado: {{ tarea.estado }}</p>
-    <p>Completada: {{ tarea.completada }}</p>
-    <p>Fecha Creacion: {{ tarea.fechaCreacion }}</p>
-    <p>Hora Vencimiento: {{ tarea.horaVencimiento }}</p>
+    <p>Estado: {{ tarea.estado|lower }}</p>
+    <p>Completada: {{ tarea.completada|title }}</p>
+    <p>Fecha Creacion: {{ tarea.fechaCreacion|date:"d/m/Y" }}</p>
+    <p>Hora Vencimiento: {{ tarea.horaVencimiento|time:"H:i" }}</p>
 </article>
