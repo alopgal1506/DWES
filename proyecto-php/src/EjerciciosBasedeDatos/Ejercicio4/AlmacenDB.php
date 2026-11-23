@@ -1,7 +1,7 @@
 <?php
 abstract class AlmacenDB{
     private static $server = 'db';
-    private static $db = 'banco';
+    private static $db = 'almacen';
     private static $user = 'root';
     private static $password = 'root';
     public static function connectDB()

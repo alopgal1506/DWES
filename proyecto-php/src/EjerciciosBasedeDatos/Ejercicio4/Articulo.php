@@ -89,14 +89,14 @@ class Articulo{
     public function delete()
     {
         $conexion = AlmacenDB::connectDB();
-        $borrado = "DELETE FROM articulo WHERE codigp='$this->codigo'";
+        $borrado = "DELETE FROM articulo WHERE codigo='$this->codigo'";
         $conexion->exec($borrado);
         $conexion = null;
     }
 
     public function update() {
         $conexion = AlmacenDB::connectDB();
-        $actualiza = "UPDATE articulo SET descripcion='$this->descripcion', precioCompra='$this->precioCompra', precioVenta='$this->precioVenta' ', stock='$this->stock'
+        $actualiza = "UPDATE articulo SET descripcion='$this->descripcion', precioCompra='$this->precioCompra', precioVenta='$this->precioVenta', stock='$this->stock'
         WHERE codigo='$this->codigo'";
         $conexion->exec($actualiza);
         $conexion=null;
@@ -106,12 +106,12 @@ class Articulo{
         $conexion = AlmacenDB::connectDB();
         $seleccion = "SELECT codigo, descripcion, precioCompra, precioVenta, stock FROM articulo";
         $consulta = $conexion->query($seleccion);
-        $clientes = [];
+        $articulos = [];
         while ($registro = $consulta->fetchObject()) {
             $articulos[] = new Articulo($registro->codigo, $registro->descripcion, $registro->precioCompra, $registro->precioVenta, $registro->stock);
         }
         $conexion = null;
-        return $clientes;
+        return $articulos;
     }
 
     public static function getArticuloById($codigo) {
@@ -129,10 +129,31 @@ class Articulo{
         }
     }
 
-
-    public static function salidaAlmacen($stockSacado){
-
+    public function entradaAlmacen($stockEntrante){
+        $conexion = AlmacenDB::connectDB();
+        $actualiza = "UPDATE articulo SET stock=stock+$stockEntrante
+        WHERE codigo='$this->codigo'";
+        $filas = $conexion->exec($actualiza);
+        $conexion=null;
+        $correcto = $filas > 0;
+        if ($correcto) {
+            $this->stock += $stockEntrante;
+        }
+        return $correcto;
     }
 
+
+    public function salidaAlmacen($stockSacado){
+        $conexion = AlmacenDB::connectDB();
+        $actualiza = "UPDATE articulo SET stock=stock-$stockSacado
+        WHERE codigo='$this->codigo' AND stock>=$stockSacado";
+        $filas = $conexion->exec($actualiza);
+        $conexion=null;
+        $correcto = $filas > 0;
+        if ($correcto) {
+            $this->stock -= $stockSacado;
+        }
+        return $correcto;
+    }
 }
 ?>
