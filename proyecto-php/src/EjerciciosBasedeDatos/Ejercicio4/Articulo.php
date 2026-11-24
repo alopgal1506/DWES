@@ -155,5 +155,28 @@ class Articulo{
         }
         return $correcto;
     }
+
+
+    public static function contarArticulos() {
+        $conexion = AlmacenDB::connectDB();
+        $total = (int) $conexion->query("SELECT COUNT(*) FROM articulo")->fetchColumn();
+        $conexion = null;
+        return $total;
+    }
+
+    public static function getArticuloPaginados($inicio, $porPagina) {
+        $conexion = AlmacenDB::connectDB();
+        $seleccion = "SELECT codigo, descripcion, precioCompra, precioVenta, stock FROM articulo ORDER BY codigo LIMIT :inicio, :porPagina";
+        $consulta = $conexion->prepare($seleccion);
+        $consulta->bindValue(':inicio', (int)$inicio, PDO::PARAM_INT);
+        $consulta->bindValue(':porPagina', (int)$porPagina, PDO::PARAM_INT);
+        $consulta->execute();
+        $articulos = [];
+        while ($registro = $consulta->fetchObject()) {
+            $articulos[] = new Articulo($registro->codigo, $registro->descripcion, $registro->precioCompra, $registro->precioVenta, $registro->stock);
+        }
+        $conexion = null;
+        return $articulos;
+    }
 }
 ?>

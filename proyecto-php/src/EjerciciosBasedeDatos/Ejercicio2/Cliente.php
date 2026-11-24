@@ -118,4 +118,27 @@ class Cliente
             return false;
         }
     }
+
+    public static function contarClientes() {
+        $conexion = ClienteDB::connectDB();
+        $total = (int) $conexion->query("SELECT COUNT(*) FROM cliente")->fetchColumn();
+        $conexion = null;
+        return $total;
+    }
+
+    public static function getClientesPaginados($inicio, $porPagina) {
+        $conexion = ClienteDB::connectDB();
+        $seleccion = "SELECT dni, nombre, direccion, telefono FROM cliente LIMIT :inicio, :porPagina";
+        $consulta = $conexion->prepare($seleccion);
+        // En LIMIT los valores deben enlazarse como enteros
+        $consulta->bindValue(':inicio', (int)$inicio, PDO::PARAM_INT);
+        $consulta->bindValue(':porPagina', (int)$porPagina, PDO::PARAM_INT);
+        $consulta->execute();
+        $clientes = [];
+        while ($registro = $consulta->fetchObject()) {
+            $clientes[] = new Cliente($registro->dni, $registro->nombre, $registro->direccion, $registro->telefono);
+        }
+        $conexion = null;
+        return $clientes;
+    }
 }
