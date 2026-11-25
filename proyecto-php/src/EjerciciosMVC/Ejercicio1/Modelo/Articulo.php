@@ -65,7 +65,7 @@ class Articulo{
         $conexion = BlogDB::connectDB();
         $insercion = "INSERT INTO articulo (titulo, fecha_publicacion, contenido) VALUES ('$this->titulo','$this->fechaPublicacion','$this->contenido')";
         $conexion->exec($insercion);
-        $this->identificador = (int) $conexion->lastInsertId();   // opcional: guarda el id autoincrementado
+        $this->identificador = (int) $conexion->lastInsertId();
         $conexion = null;
     }
 
@@ -74,6 +74,14 @@ class Articulo{
         $borrado = "DELETE FROM articulo WHERE id='$this->identificador'";
         $conexion->exec($borrado);
         $conexion = null;
+    }
+
+    public function update() {
+        $conexion = BlogDB::connectDB();
+        $actualiza = "UPDATE articulo SET titulo='$this->titulo', fecha_publicacion='$this->fechaPublicacion', contenido='$this->contenido'
+        WHERE id='$this->identificador'";
+        $conexion->exec($actualiza);
+        $conexion=null;
     }
 
     public static function getArticulos() {
@@ -105,15 +113,15 @@ class Articulo{
     }
 
     public static function contarArticulos() {
-        $conexion = AlmacenDB::connectDB();
+        $conexion = BlogDB::connectDB();
         $total = (int) $conexion->query("SELECT COUNT(*) FROM articulo")->fetchColumn();
         $conexion = null;
         return $total;
     }
 
         public static function getArticuloPaginados($inicio, $porPagina) {
-        $conexion = AlmacenDB::connectDB();
-        $seleccion = "SELECT id, titulo, precioCompra, fecha_publicacion, contenido FROM articulo ORDER BY id LIMIT :inicio, :porPagina";
+        $conexion = BlogDB::connectDB();
+        $seleccion = "SELECT id, titulo, fecha_publicacion, contenido FROM articulo ORDER BY id LIMIT :inicio, :porPagina";
         $consulta = $conexion->prepare($seleccion);
         $consulta->bindValue(':inicio', (int)$inicio, PDO::PARAM_INT);
         $consulta->bindValue(':porPagina', (int)$porPagina, PDO::PARAM_INT);
